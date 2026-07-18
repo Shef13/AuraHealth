@@ -13,7 +13,7 @@ export interface WeightExtraction { id: StableId; mediaAssetId: StableId; value:
 export interface CallPermission { id: StableId; patientId: StableId; status: "requested" | "granted" | "declined"; createdAt: ISODateTime; }
 export interface CallSession { id: StableId; patientId: StableId; status: "queued" | "in_progress" | "completed" | "failed" | "scheduled" | "ringing" | "answered" | "no answer" | "cancelled"; startedAt?: ISODateTime; endedAt?: ISODateTime; }
 export interface AssessmentQuestion { id: StableId; prompt: string; clinicalSignal: string; }
-export interface AssessmentResponse { id: StableId; callSessionId: StableId; questionId: StableId; transcript: string; createdAt: ISODateTime; }
+export interface AssessmentResponse { id: StableId; callSessionId: StableId; questionId: StableId; rawTranscript: string; normalisedAnswer: "yes" | "no" | "unknown" | "mild" | "moderate" | "severe" | "not_applicable"; confidence: number; requiresClarification: boolean; emergencySignal: boolean; createdAt: ISODateTime; }
 export interface AnalysisEvent { id: StableId; patientId: StableId; eventType: string; summary: string; createdAt: ISODateTime; }
 export interface RiskAssessment { id: StableId; patientId: StableId; label: "low" | "watch" | "possible_deterioration_signal"; score: number; explanation: string; requiresClinicianReview: true; createdAt: ISODateTime; }
 export interface ClinicalAlert { id: StableId; patientId: StableId; assessmentId: StableId; title: string; status: "new" | "reviewed" | "closed"; createdAt: ISODateTime; }

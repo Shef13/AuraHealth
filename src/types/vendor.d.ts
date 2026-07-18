@@ -35,6 +35,7 @@ declare module "zod" {
     enum<T extends readonly [string, ...string[]]>(values: T): { default(value: T[number]): unknown; nullable(): unknown };
     number(): { nullable(): unknown; min(value: number): { max(value: number): unknown } };
     string(): unknown;
+    boolean(): unknown;
     literal<T>(value: T): unknown;
     array(schema: unknown): unknown;
     object<T extends Record<string, unknown>>(shape: T): { superRefine(fn: (env: Record<string, string>, ctx: { addIssue(issue: Record<string, unknown>): void }) => void): { parse(input: unknown): Record<string, string> }; parse(input: unknown): any };

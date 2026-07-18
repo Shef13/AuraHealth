@@ -32,3 +32,12 @@ Mock provider behaviour:
 - Clinical analysis returns a demo risk assessment labelled possible deterioration signal and requires clinician review.
 
 This scenario supports rehearsal without external network calls or real patient data.
+
+
+Aura voice assessment scripted answers:
+- Consent: yes.
+- Medication taken: yes.
+- High-salt meal: no.
+- Breathlessness: a little more than usual.
+- Extra pillows: two.
+- Emergency symptoms: no.

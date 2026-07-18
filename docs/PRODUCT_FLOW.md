@@ -10,6 +10,8 @@ WhatsApp image → weight extraction → patient confirmation → call permissio
 6. A configurable demo rule can create a possible deterioration signal and ask permission to call.
 7. Severe-symptom responses bypass routine assessment and create a clinician-visible escalation.
 8. AuraCare asks permission to call.
+9. Aura asks one guided assessment question at a time and stores structured responses.
+10. Emergency, stop, or human-care-team requests end the ordinary assessment flow safely.
 6. Patient completes a short voice assessment.
 7. AuraCare records a demo risk assessment and possible deterioration signal.
 8. Clinician reviews the evidence and records an intervention.
