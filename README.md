@@ -35,7 +35,7 @@ VOICE_PROVIDER=mock
 Live mode requires explicit live providers and credentials. The application must not silently fall back to mock mode.
 
 ## Current limitations
-- No provider webhooks are implemented yet.
+- Messaging intake webhook exists at `/api/webhooks/messaging`; no WhatsApp outbound live delivery is implemented yet.
 - No database connection is implemented yet.
 - Developer demo controls are available at `/developer` for the scripted Arthur flow.
 - Clinician queue and conversation screens are placeholders.

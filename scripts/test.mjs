@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 
-const journey = readFileSync("src/lib/demo/journey.ts", "utf8");
-const testFile = readFileSync("src/lib/demo/journey.test.ts", "utf8");
-const required = ["reduceArthurEvents", "resetDemoEvents", "appendDemoStep", "Stable demo baseline", "Possible deterioration signal"];
+const journey = readFileSync("src/lib/demo/journey.ts", "utf8") + readFileSync("src/lib/intake/service.ts", "utf8") + readFileSync("src/lib/intake/parsers.ts", "utf8");
+const testFile = readFileSync("src/lib/demo/journey.test.ts", "utf8") + readFileSync("src/lib/intake/service.test.ts", "utf8") + readFileSync("src/lib/intake/parsers.test.ts", "utf8");
+const required = ["reduceArthurEvents", "resetDemoEvents", "appendDemoStep", "Stable demo baseline", "Possible deterioration signal", "processInboundMessage", "parseTwilioWebhook", "duplicate"];
 for (const token of required) {
   if (!journey.includes(token) && !testFile.includes(token)) {
     console.error(`Missing expected journey test token: ${token}`);

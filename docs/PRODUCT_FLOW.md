@@ -4,7 +4,7 @@ WhatsApp image → weight extraction → patient confirmation → call permissio
 
 1. Patient starts or resumes a WhatsApp conversation.
 2. Patient sends a photograph of a weighing scale.
-3. AuraCare stores media metadata and starts weight extraction.
+3. Messaging intake validates the webhook, matches the sender, records the inbound message, stores media metadata and queues weight extraction.
 4. Patient confirms or corrects the detected weight.
 5. AuraCare asks permission to call.
 6. Patient completes a short voice assessment.

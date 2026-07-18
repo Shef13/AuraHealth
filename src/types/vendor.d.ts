@@ -10,6 +10,8 @@ declare const process: { env: Record<string, string | undefined> };
 declare const __dirname: string;
 
 declare module "*.css";
+declare const Buffer: { from(input: string): { length: number } };
+declare module "node:crypto" { export function createHmac(algorithm: string, key: string): { update(input: string): { digest(encoding: "base64"): string } }; export function timingSafeEqual(left: { length: number }, right: { length: number }): boolean; }
 declare module "node:path" { const path: { resolve(...parts: string[]): string }; export default path; }
 declare module "node:fs" { export function readFileSync(path: string, encoding: string): string; }
 declare module "node:child_process" { export function execSync(command: string, options?: { encoding?: string }): string; }
@@ -17,6 +19,7 @@ declare module "node:child_process" { export function execSync(command: string, 
 declare module "react" {
   export function useEffect(effect: () => void | (() => void), deps?: unknown[]): void;
   export function useMemo<T>(factory: () => T, deps: unknown[]): T;
+  export function useState<T>(initialState: T): [T, (value: T) => void];
   export function useReducer<S, A>(reducer: (state: S, action: A) => S, initialState: S): [S, (action: A) => void];
 }
 

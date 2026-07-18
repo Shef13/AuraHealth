@@ -12,6 +12,7 @@ Next.js App Router, React, strict TypeScript, Tailwind CSS, Zod configuration, m
 - `src/lib/domain`: Core domain and event types.
 - `src/lib/providers`: Messaging, vision, voice, and clinical-analysis provider contracts and mocks.
 - `src/lib/demo`: Fictional deterministic seed data.
+- `src/lib/intake`: Messaging webhook parsing, idempotency, patient matching, and normalised event creation.
 - `docs`: Architecture, product flow, and demo scenario notes.
 
 ## Commands

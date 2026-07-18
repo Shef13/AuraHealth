@@ -7,7 +7,7 @@ Persistent safety statement: **Demonstration only. Not for diagnosis, prescribin
 
 ## Component responsibilities
 - Next.js App Router UI: patient-monitoring dashboard, development-only demo controls, conversation placeholder, and clinician queue placeholder.
-- Route handlers (future): receive provider webhooks and convert raw payloads into normalised internal events.
+- Route handlers: receive messaging-provider webhooks, validate live signatures, acknowledge promptly, and convert raw payloads into normalised internal events.
 - Provider adapters: encapsulate messaging, media download, vision extraction, voice calls, and clinical analysis.
 - Domain layer: stable IDs, ISO timestamps, append-only journey events, typed entities, and pure event reduction for dashboard state.
 - Data layer: memory provider for local demo and PostgreSQL-compatible schema for deployment.
@@ -29,4 +29,4 @@ Media rows store provider media ID, storage reference, MIME type, size, hash, cr
 Mock mode uses deterministic seeded data and mock providers with no external network calls. Live mode is enabled only with environment variables and must never silently fall back to mock providers.
 
 ## Security boundaries
-Provider webhook payloads are raw inputs and must be validated before normalisation. Secrets stay in environment variables. Clinician summaries must be separated from raw provider payloads. All demo patient data is fictional.
+Provider webhook payloads are raw inputs and must be validated before normalisation. Messaging intake accepts only JPEG, PNG and WebP images up to 5 MB, applies idempotency by provider message ID, masks phone numbers in helper code, and stores raw provider payloads only when debug retention is explicitly enabled. Secrets stay in environment variables. Clinician summaries must be separated from raw provider payloads. All demo patient data is fictional.
