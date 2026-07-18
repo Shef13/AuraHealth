@@ -46,3 +46,11 @@ Live mode requires explicit live providers and credentials. The application must
 
 ## Phase 9 governance controls
 Consent, privacy, media retention, safety-branch, redaction and append-only audit controls are documented in `docs/PRIVACY_MODEL.md`, `docs/THREAT_MODEL.md`, `docs/CLINICAL_SAFETY_LIMITATIONS.md`, `docs/DATA_RETENTION.md` and `docs/INCIDENT_RESPONSE.md`.
+
+
+## Phase 10 rehearsal and stage instructions
+- Use `AURACARE_DEMO_MODE=fully_simulated` for the offline stage-safe path.
+- Use `AURACARE_DEMO_MODE=hybrid` only when WhatsApp intake is configured and voice/analysis remain simulated.
+- Use `AURACARE_DEMO_MODE=live_integration` only when WhatsApp and voice providers are explicitly configured; missing providers are surfaced by `/api/ready`.
+- Keep `/developer` off the pitch screen. It contains the protected operator panel for Reset, Advance one step, Retry failed step, Skip call, Replay analysis, Reconnect dashboard, Restore Arthur seed data, Switch to backup simulation and Copy diagnostic summary.
+- Rehearsal checklist: `docs/rehearsal/CHECKLIST.md`. Deployment runbook: `docs/deployment/RUNBOOK.md`.

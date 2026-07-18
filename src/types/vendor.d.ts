@@ -37,7 +37,7 @@ declare module "zod" {
   export const z: {
     enum<T extends readonly [string, ...string[]]>(values: T): { default(value: T[number]): unknown; nullable(): unknown };
     number(): { nullable(): unknown; min(value: number): { max(value: number): unknown } };
-    string(): unknown;
+    string(): { optional(): unknown };
     boolean(): unknown;
     literal<T>(value: T): unknown;
     array(schema: unknown): unknown;
