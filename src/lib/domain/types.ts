@@ -11,7 +11,7 @@ export interface MediaAsset { id: StableId; patientId: StableId; providerMediaId
 export interface WeightReading { id: StableId; patientId: StableId; valueKg: number; source: "patient_confirmed" | "scale_image" | "manual_entry" | "seed"; recordedAt: ISODateTime; }
 export interface WeightExtraction { id: StableId; mediaAssetId: StableId; value: number | null; unit: "kg" | "lb" | null; confidence: number; status: "success" | "uncertain" | "failed"; visibleCandidates: Array<{ value: number; unit: "kg" | "lb" | null }>; qualityIssues: string[]; requiresConfirmation: true; imageHash: string; imageDeletionStatus: "retained" | "scheduled" | "deleted"; deleteAfter?: ISODateTime; rawProviderPayloadRef?: StableId; createdAt: ISODateTime; }
 export interface CallPermission { id: StableId; patientId: StableId; status: "requested" | "granted" | "declined"; createdAt: ISODateTime; }
-export interface CallSession { id: StableId; patientId: StableId; status: "queued" | "in_progress" | "completed" | "failed"; startedAt?: ISODateTime; endedAt?: ISODateTime; }
+export interface CallSession { id: StableId; patientId: StableId; status: "queued" | "in_progress" | "completed" | "failed" | "scheduled" | "ringing" | "answered" | "no answer" | "cancelled"; startedAt?: ISODateTime; endedAt?: ISODateTime; }
 export interface AssessmentQuestion { id: StableId; prompt: string; clinicalSignal: string; }
 export interface AssessmentResponse { id: StableId; callSessionId: StableId; questionId: StableId; transcript: string; createdAt: ISODateTime; }
 export interface AnalysisEvent { id: StableId; patientId: StableId; eventType: string; summary: string; createdAt: ISODateTime; }
@@ -24,7 +24,7 @@ export interface AuditEvent { id: StableId; actor: "patient" | "clinician" | "sy
 export type AuraCareEventType =
   | "message.received" | "scale_image.received" | "weight.extraction_started" | "weight.extraction_completed"
   | "weight.confirmation_requested" | "weight.confirmed" | "call.permission_requested" | "call.permission_granted"
-  | "call.started" | "call.question_asked" | "call.response_received" | "analysis.signal_detected"
+  | "call.started" | "call.status_changed" | "call.question_asked" | "call.response_received" | "emergency.escalated" | "analysis.signal_detected"
   | "analysis.completed" | "alert.created" | "intervention.recorded" | "follow_up.scheduled";
 
 export interface AuraCareEvent { id: StableId; type: AuraCareEventType; patientId: StableId; occurredAt: ISODateTime; payload: Record<string, unknown>; }

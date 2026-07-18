@@ -7,7 +7,9 @@ WhatsApp image → weight extraction → patient confirmation → call permissio
 3. Messaging intake validates the webhook, matches the sender, records the inbound message, stores media metadata and queues weight extraction.
 4. Vision extraction returns a validated candidate reading and asks the patient to confirm, retake, or enter weight manually.
 5. Only explicit confirmation or manual entry creates a linked weight reading.
-5. AuraCare asks permission to call.
+6. A configurable demo rule can create a possible deterioration signal and ask permission to call.
+7. Severe-symptom responses bypass routine assessment and create a clinician-visible escalation.
+8. AuraCare asks permission to call.
 6. Patient completes a short voice assessment.
 7. AuraCare records a demo risk assessment and possible deterioration signal.
 8. Clinician reviews the evidence and records an intervention.

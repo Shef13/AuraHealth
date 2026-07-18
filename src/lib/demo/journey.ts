@@ -88,11 +88,16 @@ export function reduceArthurEvents(events: AuraCareEvent[]): ArthurDemoState {
     ? { label: "Requires clinician review", tone: "amber" as const, detail: "Possible deterioration signal is queued for review." }
     : { label: "Stable demo baseline", tone: "green" as const, detail: "Arthur initially appears stable against seeded data." };
 
-  const callStatus = has("call.started")
-    ? { label: responses.length >= 3 ? "Assessment complete" : "Call in progress", tone: "blue" as const, detail: `${responses.length}/3 scripted answers recorded.` }
-    : has("call.permission_granted")
-      ? { label: "Permission granted", tone: "green" as const, detail: "Ready to start scripted voice assessment." }
-      : { label: "Not requested", tone: "green" as const, detail: "No live call provider is connected in mock mode." };
+  const latestCallStatus = [...allEvents].reverse().find((event) => event.type === "call.status_changed")?.payload.status;
+  const callStatus = latestCallStatus
+    ? { label: `Call ${latestCallStatus}`, tone: latestCallStatus === "failed" || latestCallStatus === "no answer" ? "amber" as const : "blue" as const, detail: recoveryDetail(String(latestCallStatus)) }
+    : has("call.started")
+      ? { label: responses.length >= 3 ? "Assessment complete" : "Call in progress", tone: "blue" as const, detail: `${responses.length}/3 scripted answers recorded.` }
+      : has("call.permission_granted")
+        ? { label: "Permission granted", tone: "green" as const, detail: "Ready to start scripted voice assessment." }
+        : has("call.permission_requested")
+          ? { label: "Permission requested", tone: "amber" as const, detail: "Awaiting Arthur’s call preference." }
+          : { label: "Not requested", tone: "green" as const, detail: "No live call provider is connected in mock mode." };
 
   const riskStatus = has("analysis.completed")
     ? { label: "Demo risk assessment: Possible deterioration signal", tone: "red" as const, detail: "Requires clinician review. Not a validated clinical prediction." }
@@ -137,3 +142,9 @@ export function resetDemoEvents(): AuraCareEvent[] {
 }
 
 export const demoControls = stepOrder.map((step) => ({ step, label: scriptedEvents[step].label }));
+
+function recoveryDetail(status: string): string {
+  if (status === "no answer") return "Safe WhatsApp follow-up is available.";
+  if (status === "failed") return "Offer retry or clinician contact.";
+  return "Mock call orchestration is progressing deterministically.";
+}

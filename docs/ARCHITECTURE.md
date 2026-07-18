@@ -18,7 +18,7 @@ Application code uses `MessagingProvider`, `VisionProvider`, `VoiceProvider`, an
 ## Event flow
 `message.received` → `scale_image.received` → `weight.extraction_started` → `weight.extraction_completed` → `weight.confirmation_requested` → `weight.confirmed` → `call.permission_requested` → `call.permission_granted` → `call.started` → `call.question_asked` → `call.response_received` → `analysis.signal_detected` → `analysis.completed` → `alert.created` → `intervention.recorded` → `follow_up.scheduled`.
 
-Events are append-only for the demo timeline. Patient-monitoring screen state is reduced from events rather than scattered booleans. Scale image processing emits extraction and confirmation-request events first; `weight.confirmed` is emitted only after explicit confirmation, retake, or manual-entry handling.
+Events are append-only for the demo timeline. Patient-monitoring screen state is reduced from events rather than scattered booleans. Scale image processing emits extraction and confirmation-request events first; `weight.confirmed` is emitted only after explicit confirmation, retake, or manual-entry handling. Call orchestration then uses a configurable demo anomaly rule to request permission, start mock or live-provider calls, process authenticated callbacks, and bypass routine assessment for severe-symptom escalation.
 
 ## Data storage model
 Initial PostgreSQL-compatible tables: `patients`, `patient_consents`, `conversations`, `messages`, `media_assets`, `weight_readings`, `weight_extractions`, `call_permissions`, `call_sessions`, `assessment_responses`, `analysis_events`, `risk_assessments`, `clinical_alerts`, `interventions`, `follow_ups`, and `audit_events`.
