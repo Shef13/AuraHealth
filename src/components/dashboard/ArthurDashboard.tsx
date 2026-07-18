@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useReducer } from "react";
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { AlertTriangle, CheckCircle2, RotateCcw } from "lucide-react";
+import { LiveAnalysisPanel } from "@/components/dashboard/LiveAnalysisPanel";
 import type { AuraCareEvent } from "@/lib/domain/types";
 import { appendDemoStep, demoControls, reduceArthurEvents, resetDemoEvents, type DemoStep, type StatusTone } from "@/lib/demo/journey";
 
@@ -40,6 +41,7 @@ export function ArthurDashboard({ controlsEnabled }: { controlsEnabled: boolean 
   const chartData = state.weights.map((reading) => ({ date: new Date(reading.recordedAt).toLocaleDateString("en-GB", { weekday: "short" }), weight: reading.valueKg }));
 
   return <div className="space-y-6 text-lg">
+    <LiveAnalysisPanel controlsEnabled={controlsEnabled} />
     <section className="rounded-[2rem] bg-white p-8 shadow-soft">
       <div className="flex flex-wrap items-start justify-between gap-6">
         <div>

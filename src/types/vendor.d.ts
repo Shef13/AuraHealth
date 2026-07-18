@@ -8,6 +8,8 @@ declare namespace JSX {
 
 declare const process: { env: Record<string, string | undefined> };
 declare const __dirname: string;
+declare class EventSource { constructor(url: string); onopen: (() => void) | null; onerror: (() => void) | null; addEventListener(type: string, listener: (message: MessageEvent) => void): void; close(): void; }
+declare interface MessageEvent { data: string; }
 
 declare module "*.css";
 declare const Buffer: { from(input: string): { length: number } };
@@ -19,7 +21,7 @@ declare module "node:child_process" { export function execSync(command: string, 
 declare module "react" {
   export function useEffect(effect: () => void | (() => void), deps?: unknown[]): void;
   export function useMemo<T>(factory: () => T, deps: unknown[]): T;
-  export function useState<T>(initialState: T): [T, (value: T) => void];
+  export function useState<T>(initialState: T): [T, (value: T | ((current: T) => T)) => void];
   export function useReducer<S, A>(reducer: (state: S, action: A) => S, initialState: S): [S, (action: A) => void];
 }
 
