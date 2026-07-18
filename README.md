@@ -5,7 +5,7 @@ AuraCare is a WhatsApp-first heart-failure monitoring and virtual-ward demonstra
 > Demonstration only. Not for diagnosis, prescribing or emergency use.
 
 ## Current status
-Phase 0 repository foundation: typed domain model, provider interfaces, deterministic mock providers, fictional Arthur Pendleton seed data, documentation, and a minimal Next.js UI shell. Placeholder routes are intentionally not functional.
+Phase 1 demo foundation: typed domain model, provider interfaces, deterministic mock providers, fictional Arthur Pendleton seed data, documentation, and a patient-monitoring dashboard that derives UI state from append-only mock events. Conversation and queue routes remain placeholders.
 
 ## Setup
 ```bash
@@ -37,6 +37,6 @@ Live mode requires explicit live providers and credentials. The application must
 ## Current limitations
 - No provider webhooks are implemented yet.
 - No database connection is implemented yet.
-- Developer demo controls are a placeholder.
+- Developer demo controls are available at `/developer` for the scripted Arthur flow.
 - Clinician queue and conversation screens are placeholders.
 - Clinical analysis is simulated and not validated for clinical use.

@@ -12,5 +12,5 @@ export const envSchema = z.object({
     ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Live mode requires explicit live providers; never silently fall back to mock mode." });
   }
 });
-export type AuraCareConfig = z.infer<typeof envSchema>;
+export type AuraCareConfig = ReturnType<typeof getConfig>;
 export const getConfig = () => envSchema.parse(process.env);
