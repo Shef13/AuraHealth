@@ -1,0 +1,24 @@
+# Product Flow
+
+WhatsApp image → weight extraction → patient confirmation → call permission → voice assessment → analysis → clinician review → intervention → follow-up.
+
+1. Patient starts or resumes a WhatsApp conversation.
+2. Patient sends a photograph of a weighing scale.
+3. Messaging intake validates the webhook, matches the sender, records the inbound message, stores media metadata and queues weight extraction.
+4. Vision extraction returns a validated candidate reading and asks the patient to confirm, retake, or enter weight manually.
+5. Only explicit confirmation or manual entry creates a linked weight reading.
+6. A configurable demo rule can create a possible deterioration signal and ask permission to call.
+7. Severe-symptom responses bypass routine assessment and create a clinician-visible escalation.
+8. AuraCare asks permission to call.
+9. Aura asks one guided assessment question at a time and stores structured responses.
+10. Emergency, stop, or human-care-team requests end the ordinary assessment flow safely.
+6. Patient completes a short voice assessment.
+7. AuraCare records a demo risk assessment and possible deterioration signal.
+8. Clinician reviews the evidence and records an intervention.
+9. AuraCare sends follow-up messaging after clinician review.
+
+Safety copy must remain visible: **Demonstration only. Not for diagnosis, prescribing or emergency use.**
+
+The live-analysis panel replays the deterministic Arthur journey over Server-Sent Events and supports pause, resume and reset for stage mode.
+
+Clinician review groups Arthur into immediate review, supports attributed simulated decisions, audit history, safe follow-up scheduling and resolved queue state.

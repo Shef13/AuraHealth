@@ -1,0 +1,1 @@
+export function Disclaimer() { return <div className="border-t border-blue-100 bg-blue-50 px-6 py-3 text-center text-sm text-blue-900">Demonstration only. Not for diagnosis, prescribing or emergency use.</div>; }
