@@ -1,5 +1,7 @@
 import type { AuraCareEvent, MediaAsset, Message, Patient } from "@/lib/domain/types";
 import { findPatientByPhone } from "./patients";
+import { hasConsent } from "@/lib/governance/consent";
+import { scheduleMediaDeletion } from "@/lib/governance/media";
 import type { IntakeOutcomeCode, IntakeRecord, IntakeStore, NormalisedInboundMedia, NormalisedInboundMessage } from "./types";
 
 export const acceptedImageMimeTypes = ["image/jpeg", "image/png", "image/webp"] as const;
@@ -18,12 +20,14 @@ export function processInboundMessage(input: NormalisedInboundMessage, options: 
 
   const patient = findPatientByPhone(input.from);
   if (!patient) return save(options.store, { providerMessageId: input.providerMessageId, mediaAssets: [], events: [], outcome: "unknown_sender", safeResponse: "Thanks for contacting AuraCare. Please contact the demo team for enrolment or support." });
+  if (!hasConsent(patient.id, "whatsapp_communication") || !hasConsent(patient.id, "scale_photo_processing")) return save(options.store, { providerMessageId: input.providerMessageId, patient, mediaAssets: [], events: baseEvents(input, patient, options.now), outcome: "consent_withdrawn", safeResponse: "I’ve recorded that this demo cannot process non-essential WhatsApp or scale-photo information without consent. Please contact the demo care team." });
   if (input.media.length === 0) return save(options.store, { providerMessageId: input.providerMessageId, patient, mediaAssets: [], events: baseEvents(input, patient, options.now), outcome: "missing_media", safeResponse: "Thanks, Arthur. Please send a clear photo of the scale for this demo check-in." });
 
   const unsupported = input.media.find((media) => !isAcceptedImage(media));
   if (unsupported) return save(options.store, { providerMessageId: input.providerMessageId, patient, mediaAssets: [], events: baseEvents(input, patient, options.now), outcome: "unsupported_media", safeResponse: "Thanks, Arthur. I can only accept JPEG, PNG or WebP scale photos for this demo." });
 
   const mediaAssets = input.media.map((media, index) => toMediaAsset(media, patient, input, index, options.now));
+  mediaAssets.forEach((asset) => scheduleMediaDeletion(asset));
   const events = [
     ...baseEvents(input, patient, options.now),
     ...mediaAssets.map((asset): AuraCareEvent => ({ id: `event-${input.providerMessageId}-scale-${asset.id}`, type: "scale_image.received", patientId: patient.id, occurredAt: options.now?.() ?? input.timestamp, payload: { mediaAssetId: asset.id, providerMediaId: asset.providerMediaId, mimeType: asset.mimeType, sizeBytes: asset.sizeBytes, retention: input.rawPayloadRetention } })),

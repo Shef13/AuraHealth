@@ -19,7 +19,7 @@ export interface RiskAssessment { id: StableId; patientId: StableId; label: "low
 export interface ClinicalAlert { id: StableId; patientId: StableId; assessmentId: StableId; title: string; status: "new" | "reviewed" | "closed"; createdAt: ISODateTime; }
 export interface Intervention { id: StableId; patientId: StableId; clinicianName: string; note: string; createdAt: ISODateTime; }
 export interface FollowUp { id: StableId; patientId: StableId; message: string; scheduledFor: ISODateTime; status: "scheduled" | "sent"; }
-export interface AuditEvent { id: StableId; actor: "patient" | "clinician" | "system"; action: string; targetId: StableId; createdAt: ISODateTime; }
+export interface AuditEvent { id: StableId; actor: "patient" | "clinician" | "system"; action: string; targetId: StableId; createdAt: ISODateTime; patientId?: StableId; timestamp?: ISODateTime; source?: string; previousState?: Record<string, unknown> | null; newState?: Record<string, unknown>; relevantEventIds?: StableId[]; requestOrCorrelationId?: string; }
 
 export type AuraCareEventType =
   | "message.received" | "scale_image.received" | "weight.extraction_started" | "weight.extraction_completed"

@@ -1,7 +1,7 @@
 import type { AuraCareEvent, MediaAsset, Message, Patient } from "@/lib/domain/types";
 
 export type MessagingProviderName = "mock" | "twilio";
-export type IntakeOutcomeCode = "accepted" | "duplicate" | "unsupported_media" | "missing_media" | "unknown_sender" | "invalid_signature";
+export type IntakeOutcomeCode = "accepted" | "duplicate" | "unsupported_media" | "missing_media" | "unknown_sender" | "invalid_signature" | "consent_withdrawn";
 export type PayloadRetention = "discarded" | "debug_retained";
 
 export interface NormalisedInboundMedia {

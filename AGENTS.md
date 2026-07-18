@@ -44,3 +44,7 @@ The app runs locally; lint, type-check, tests, and build have been run; mock/liv
 - `docs/ARCHITECTURE.md`
 - `docs/PRODUCT_FLOW.md`
 - `docs/DEMO_SCENARIO.md`
+
+
+## Phase 9 governance controls
+Consent, privacy, media retention, safety-branch, redaction and append-only audit controls are documented in `docs/PRIVACY_MODEL.md`, `docs/THREAT_MODEL.md`, `docs/CLINICAL_SAFETY_LIMITATIONS.md`, `docs/DATA_RETENTION.md` and `docs/INCIDENT_RESPONSE.md`.

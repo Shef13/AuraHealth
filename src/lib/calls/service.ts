@@ -2,9 +2,10 @@ import type { AuraCareEvent, Patient } from "@/lib/domain/types";
 import type { MessagingProvider, VoiceProvider } from "@/lib/providers/interfaces";
 import { defaultArthurAnomalyRule, type CallPermissionAction, type CallState, type CallStatus, type CallStore, type CallTriggerInput, type CallWorkflowResult, type DemoAnomalyRule, type VoiceCallbackInput } from "./types";
 import { callStore } from "./store";
+import { getEmergencyGuidance } from "@/lib/governance/emergency";
 
 export const callPermissionPrompt = "Your confirmed weight is higher than your usual baseline. I’d like to call you for a short check-in. Would you like me to call now?";
-export const emergencyGuidance = "If you have severe symptoms, seek urgent help using your local emergency route now. AuraCare has not contacted emergency services in this demo.";
+export const emergencyGuidance = getEmergencyGuidance();
 
 export function evaluateDemoAnomaly(input: CallTriggerInput, rule: DemoAnomalyRule = defaultArthurAnomalyRule) {
   const changeKg = Math.round((input.confirmedReading.valueKg - rule.dryWeightKg) * 10) / 10;

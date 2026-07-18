@@ -42,3 +42,7 @@ Live mode requires explicit live providers and credentials. The application must
 - Scale-image extraction is deterministic in mock mode and requires confirmation before a reading is recorded.
 - Call permission, mock call orchestration, the constrained Aura voice assessment script and a mock Server-Sent Events analysis stream and explainable demo risk engine and clinician evidence-review queue are implemented for the deterministic Arthur scenario.
 - Clinical analysis is simulated and not validated for clinical use.
+
+
+## Phase 9 governance controls
+Consent, privacy, media retention, safety-branch, redaction and append-only audit controls are documented in `docs/PRIVACY_MODEL.md`, `docs/THREAT_MODEL.md`, `docs/CLINICAL_SAFETY_LIMITATIONS.md`, `docs/DATA_RETENTION.md` and `docs/INCIDENT_RESPONSE.md`.

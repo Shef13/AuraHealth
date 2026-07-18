@@ -30,3 +30,7 @@ Mock mode uses deterministic seeded data and mock providers with no external net
 
 ## Security boundaries
 Provider webhook payloads are raw inputs and must be validated before normalisation. Messaging intake accepts only JPEG, PNG and WebP images up to 5 MB, applies idempotency by provider message ID, masks phone numbers in helper code, and stores raw provider payloads only when debug retention is explicitly enabled. Secrets stay in environment variables. Clinician summaries must be separated from raw provider payloads. All demo patient data is fictional.
+
+
+## Phase 9 governance controls
+Consent, privacy, media retention, safety-branch, redaction and append-only audit controls are documented in `docs/PRIVACY_MODEL.md`, `docs/THREAT_MODEL.md`, `docs/CLINICAL_SAFETY_LIMITATIONS.md`, `docs/DATA_RETENTION.md` and `docs/INCIDENT_RESPONSE.md`.
