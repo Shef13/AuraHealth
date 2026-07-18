@@ -4,6 +4,7 @@ declare namespace React {
 
 declare namespace JSX {
   interface IntrinsicElements { [elementName: string]: any; }
+  interface ElementChildrenAttribute { children: {}; }
 }
 
 declare const process: { env: Record<string, string | undefined> };

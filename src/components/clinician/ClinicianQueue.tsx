@@ -1,0 +1,7 @@
+import Link from "next/link";
+import { getQueueGroups } from "@/lib/clinician/service";
+
+export function ClinicianQueue() {
+  const groups = getQueueGroups();
+  return <div className="space-y-6"><section className="rounded-[2rem] bg-white p-8 shadow-soft"><p className="text-base font-semibold uppercase tracking-[0.18em] text-aura">Clinician queue</p><h1 className="mt-2 text-5xl font-semibold">Evidence review queue</h1><p className="mt-3 text-slate-600">Demonstration only. Not for diagnosis, prescribing or emergency use.</p></section>{Object.entries(groups).map(([group, rows]) => <section key={group} className="rounded-[2rem] bg-white p-6 shadow-soft"><h2 className="text-3xl font-semibold">{group}</h2>{rows.length === 0 ? <p className="mt-3 text-slate-500">No patients in this group.</p> : <div className="mt-4 overflow-hidden rounded-3xl border border-slate-100"><table className="w-full text-left text-base"><thead className="bg-mist"><tr><th className="p-4">Patient</th><th>Risk category</th><th>Weight change</th><th>Key symptom</th><th>Alert age</th><th>Workflow state</th></tr></thead><tbody>{rows.map((row) => <tr key={row.patientId} className="border-t border-slate-100"><td className="p-4 font-semibold"><Link href="/queue/arthur-pendleton" className="text-aura underline">{row.patientName}</Link></td><td>{row.riskCategory}</td><td>{row.latestWeightChange}</td><td>{row.keyReportedSymptom}</td><td>{row.alertAge}</td><td>{row.workflowState}</td></tr>)}</tbody></table></div>}</section>)}</div>;
+}

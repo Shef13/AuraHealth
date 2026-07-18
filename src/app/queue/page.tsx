@@ -1,1 +1,2 @@
-export default function Page() { return <section className="rounded-[2rem] bg-white p-10 shadow-soft"><p className="text-sm font-medium uppercase tracking-wide text-aura">Placeholder</p><h1 className="mt-2 text-4xl font-semibold">Queue</h1><p className="mt-4 max-w-2xl text-slate-600">This foundation route is intentionally non-functional. Future tasks will connect deterministic mock events before enabling live providers.</p></section>; }
+import { ClinicianQueue } from "@/components/clinician/ClinicianQueue";
+export default function Page() { return <ClinicianQueue />; }

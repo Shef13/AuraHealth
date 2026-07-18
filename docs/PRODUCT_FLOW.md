@@ -20,3 +20,5 @@ WhatsApp image → weight extraction → patient confirmation → call permissio
 Safety copy must remain visible: **Demonstration only. Not for diagnosis, prescribing or emergency use.**
 
 The live-analysis panel replays the deterministic Arthur journey over Server-Sent Events and supports pause, resume and reset for stage mode.
+
+Clinician review groups Arthur into immediate review, supports attributed simulated decisions, audit history, safe follow-up scheduling and resolved queue state.
