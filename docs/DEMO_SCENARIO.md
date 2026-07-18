@@ -41,3 +41,8 @@ Aura voice assessment scripted answers:
 - Breathlessness: a little more than usual.
 - Extra pillows: two.
 - Emergency symptoms: no.
+
+Demo risk engine fixture:
+- Output name: Demo deterioration risk signal.
+- Rule set: demo-risk-rules-v1.
+- Arthur scripted result: high, 82/100, data completeness 94%, rule confidence 94%, clinician review required.
