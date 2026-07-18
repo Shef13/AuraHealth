@@ -44,8 +44,8 @@ export interface ArthurDemoState {
 
 const scriptedEvents: Record<DemoStep, Omit<AuraCareEvent, "id" | "patientId" | "occurredAt"> & { label: string }> = {
   receive_scale_image: { type: "scale_image.received", label: "Receive scale image", payload: { mediaAssetId: "media-arthur-scale-2026-07-18", providerMediaId: "mock-whatsapp-media-scale", mimeType: "image/jpeg" } },
-  complete_weight_extraction: { type: "weight.extraction_completed", label: "Complete weight extraction", payload: { detectedWeightKg: 80.2, confidence: 0.91, summary: "Mock vision detected 80.2 kg" } },
-  confirm_weight: { type: "weight.confirmed", label: "Confirm weight", payload: { confirmedWeightKg: 80.2 } },
+  complete_weight_extraction: { type: "weight.extraction_completed", label: "Complete weight extraction", payload: { status: "success", value: 79.8, unit: "kg", confidence: 0.96, summary: "Mock vision detected 79.8 kg; confirmation required." } },
+  confirm_weight: { type: "weight.confirmed", label: "Confirm weight", payload: { confirmedWeightKg: 79.8 } },
   grant_call_permission: { type: "call.permission_granted", label: "Grant call permission", payload: { permission: "granted" } },
   start_call: { type: "call.started", label: "Start call", payload: { callSessionId: "call-arthur-scripted" } },
   record_breathlessness_answer: { type: "call.response_received", label: "Record breathlessness answer", payload: { question: "Breathlessness", transcript: "More short of breath walking to the kitchen this morning." } },
@@ -110,7 +110,7 @@ function deriveConversation(events: AuraCareEvent[]): ConversationPreviewMessage
     { id: "seed-message-1", direction: "outbound", body: "Good morning Arthur, please send today’s scale photo when ready.", at: "2026-07-18T08:58:00.000Z" }
   ];
   if (events.some((event) => event.type === "scale_image.received")) messages.push({ id: "message-image", direction: "inbound", body: "[Scale image received]", at: "2026-07-18T10:00:00.000Z" });
-  if (events.some((event) => event.type === "weight.extraction_completed")) messages.push({ id: "message-confirm", direction: "outbound", body: "I read 80.2 kg. Please confirm if this is correct.", at: "2026-07-18T10:01:00.000Z" });
+  if (events.some((event) => event.type === "weight.extraction_completed")) messages.push({ id: "message-confirm", direction: "outbound", body: "I read your scale as 79.8 kg. Is that correct?", at: "2026-07-18T10:01:00.000Z" });
   if (events.some((event) => event.type === "weight.confirmed")) messages.push({ id: "message-confirmed", direction: "inbound", body: "Yes, that is correct.", at: "2026-07-18T10:02:00.000Z" });
   if (events.some((event) => event.type === "intervention.recorded")) messages.push({ id: "message-follow-up", direction: "outbound", body: "A clinician has reviewed your demo case. Please continue with your usual care plan.", at: "2026-07-18T10:10:00.000Z" });
   return messages;
@@ -120,7 +120,7 @@ function deriveEvidence(events: AuraCareEvent[], weights: WeightReading[]): Evid
   const latestWeight = weights.at(-1)?.valueKg.toFixed(1) ?? "—";
   const items: EvidenceItem[] = [{ id: "weight", label: "Latest weight", value: `${latestWeight} kg`, detail: "Compared with fictional dry weight of 78.0 kg." }];
   const extraction = events.find((event) => event.type === "weight.extraction_completed");
-  if (extraction) items.push({ id: "extraction", label: "Weight extraction", value: `${extraction.payload.detectedWeightKg ?? "—"} kg`, detail: "Mock image reading; patient confirmation required." });
+  if (extraction) items.push({ id: "extraction", label: "Weight extraction", value: `${extraction.payload.value ?? "—"} ${extraction.payload.unit ?? ""}`, detail: "Mock image reading; patient confirmation required." });
   const responseCount = events.filter((event) => event.type === "call.response_received").length;
   if (responseCount > 0) items.push({ id: "responses", label: "Voice responses", value: `${responseCount}/3`, detail: "Scripted assessment answers captured." });
   if (events.some((event) => event.type === "analysis.completed")) items.push({ id: "risk", label: "Analysis", value: "Possible deterioration signal", detail: "Demo risk assessment. Requires clinician review." });

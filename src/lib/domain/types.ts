@@ -8,8 +8,8 @@ export interface PatientConsent { id: StableId; patientId: StableId; consentType
 export interface Conversation { id: StableId; patientId: StableId; channel: Channel; status: "open" | "closed"; createdAt: ISODateTime; }
 export interface Message { id: StableId; conversationId: StableId; direction: "inbound" | "outbound"; body: string; providerPayloadRef?: StableId; createdAt: ISODateTime; }
 export interface MediaAsset { id: StableId; patientId: StableId; providerMediaId: string; storageReference: string; mimeType: string; sizeBytes: number; sha256: string; status: "retained" | "marked_for_deletion" | "deleted"; createdAt: ISODateTime; }
-export interface WeightReading { id: StableId; patientId: StableId; valueKg: number; source: "patient_confirmed" | "seed"; recordedAt: ISODateTime; }
-export interface WeightExtraction { id: StableId; mediaAssetId: StableId; detectedWeightKg: number; confidence: number; status: "completed" | "needs_confirmation" | "failed"; rawProviderPayloadRef?: StableId; createdAt: ISODateTime; }
+export interface WeightReading { id: StableId; patientId: StableId; valueKg: number; source: "patient_confirmed" | "scale_image" | "manual_entry" | "seed"; recordedAt: ISODateTime; }
+export interface WeightExtraction { id: StableId; mediaAssetId: StableId; value: number | null; unit: "kg" | "lb" | null; confidence: number; status: "success" | "uncertain" | "failed"; visibleCandidates: Array<{ value: number; unit: "kg" | "lb" | null }>; qualityIssues: string[]; requiresConfirmation: true; imageHash: string; imageDeletionStatus: "retained" | "scheduled" | "deleted"; deleteAfter?: ISODateTime; rawProviderPayloadRef?: StableId; createdAt: ISODateTime; }
 export interface CallPermission { id: StableId; patientId: StableId; status: "requested" | "granted" | "declined"; createdAt: ISODateTime; }
 export interface CallSession { id: StableId; patientId: StableId; status: "queued" | "in_progress" | "completed" | "failed"; startedAt?: ISODateTime; endedAt?: ISODateTime; }
 export interface AssessmentQuestion { id: StableId; prompt: string; clinicalSignal: string; }

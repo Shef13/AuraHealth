@@ -27,7 +27,7 @@ Scripted controls:
 Mock provider behaviour:
 - Messaging accepts outbound text and interactive messages deterministically.
 - Media download returns a tiny mock JPEG byte array and fixed hash.
-- Vision extraction returns 80.2 kg with 0.91 confidence.
+- Vision extraction returns 79.8 kg with 0.96 confidence and requires patient confirmation.
 - Voice permission is granted and a call completes immediately.
 - Clinical analysis returns a demo risk assessment labelled possible deterioration signal and requires clinician review.
 

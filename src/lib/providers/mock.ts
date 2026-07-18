@@ -9,7 +9,7 @@ export const mockMessagingProvider: MessagingProvider = {
   async downloadMedia() { return { bytes: new Uint8Array([1, 2, 3]), mimeType: "image/jpeg", sha256: "mock-scale-image-hash" }; }
 };
 
-export const mockVisionProvider: VisionProvider = { async extractWeight() { return { detectedWeightKg: 80.2, confidence: 0.91, rawProviderPayload: { provider: "mock", reading: "80.2 kg" } }; } };
+export const mockVisionProvider: VisionProvider = { async extractWeight() { return { status: "success", value: 79.8, unit: "kg", confidence: 0.96, visibleCandidates: [{ value: 79.8, unit: "kg" }], qualityIssues: [], requiresConfirmation: true }; } };
 export const mockVoiceProvider: VoiceProvider = {
   async requestCallPermission() { return { status: "granted", providerReference: "mock-call-permission" }; },
   async startCall(input) { return { id: `call-${input.patientId}`, patientId: input.patientId, status: "completed", startedAt: now(), endedAt: now() } satisfies CallSession; }

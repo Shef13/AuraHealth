@@ -39,4 +39,5 @@ Live mode requires explicit live providers and credentials. The application must
 - No database connection is implemented yet.
 - Developer demo controls are available at `/developer` for the scripted Arthur flow.
 - Clinician queue and conversation screens are placeholders.
+- Scale-image extraction is deterministic in mock mode and requires confirmation before a reading is recorded.
 - Clinical analysis is simulated and not validated for clinical use.
